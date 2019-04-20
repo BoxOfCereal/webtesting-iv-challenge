@@ -28,5 +28,14 @@ describe("/api/students", () => {
       expect(res.status).toBe(201);
       expect(data.name).toBe("noah");
     });
+    it("should add multiple students and return them", async () => {
+      const students = [{ name: "noah" }, { name: "alex" }];
+      const res = await req(server)
+        .post(endpoint + "/add")
+        .send(students);
+      const data = res.body;
+      expect(res.status).toBe(201);
+      expect(data).toEqual(students);
+    });
   });
 });
