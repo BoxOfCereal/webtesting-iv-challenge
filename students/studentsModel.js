@@ -1,9 +1,14 @@
 module.exports = { addStudents, getStudents };
 
-const students = [];
+let students = [];
 
 function addStudents(s) {
-  students.push(s);
+  if (Array.isArray(s)) {
+    students = [...students, ...s];
+  } else {
+    students.push(s);
+  }
+
   return students.find(student => student.name === s.name);
 }
 

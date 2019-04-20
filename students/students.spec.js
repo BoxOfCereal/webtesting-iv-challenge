@@ -11,10 +11,12 @@ describe("/api/students", () => {
       expect(res.status).toBe(200);
       expect(res.body).toEqual([]);
     });
-    it("should return an empty array of students", async () => {
+    it("should return an array of students", async () => {
+      const students = [{ name: "noah" }, { name: "alex" }];
+      Students.addStudents(students);
       const res = await req(server).get(endpoint);
       expect(res.status).toBe(200);
-      expect(res.body).toEqual([]);
+      expect(res.body).toEqual(students);
     });
   });
   describe("POST /add", () => {
