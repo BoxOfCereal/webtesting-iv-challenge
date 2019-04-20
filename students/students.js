@@ -11,4 +11,11 @@ router.post("/add", (req, res) => {
   res.status(201).json(newStudent);
 });
 
+router.delete("/:name", (req, res) => {
+  const name = req.params.name;
+  console.log(name);
+  Students.removeStudent(name);
+  res.status(200).json({ message: name });
+});
+
 module.exports = router;

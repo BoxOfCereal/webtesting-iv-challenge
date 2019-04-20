@@ -4,6 +4,10 @@ const Students = require("./studentsModel");
 
 const endpoint = "/api/students";
 
+beforeEach(() => {
+  Students.removeAll();
+});
+
 describe("/api/students", () => {
   describe("GET /", () => {
     it("should return an empty array of students", async () => {
@@ -36,6 +40,19 @@ describe("/api/students", () => {
       const data = res.body;
       expect(res.status).toBe(201);
       expect(data).toEqual(students);
+    });
+  });
+  describe("DELETE /:name", () => {
+    it("should delete a student", async () => {
+      const students = [{ name: "noah" }, { name: "alex" }];
+      Students.addStudents(students);
+
+      const res = await req(server).delete(endpoint + "/noah");
+
+      expect(res.status).toBe(200);
+      const studentArray = Students.getStudents();
+      expect(studentArray).toEqual([{ name: "alex" }]);
+      expect(res.body.message).toBe("noah");
     });
   });
 });

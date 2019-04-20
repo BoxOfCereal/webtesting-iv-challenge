@@ -1,4 +1,4 @@
-module.exports = { addStudents, getStudents };
+module.exports = { addStudents, getStudents, removeStudent, removeAll };
 
 let students = [];
 
@@ -14,4 +14,12 @@ function addStudents(s) {
 
 function getStudents() {
   return students;
+}
+
+function removeStudent(name) {
+  students = students.filter(s => s.name !== name);
+}
+
+function removeAll() {
+  students = [];
 }
