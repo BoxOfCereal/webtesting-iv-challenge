@@ -52,6 +52,17 @@ describe("/api/students", () => {
       expect(res.status).toBe(200);
       const studentArray = Students.getStudents();
       expect(studentArray).toEqual([{ name: "alex" }]);
+    });
+    it("should return the name of the deleted student ", async () => {
+      const students = [{ name: "noah" }, { name: "alex" }];
+      Students.addStudents(students);
+
+      const res = await req(server).delete(endpoint + "/noah");
+
+      expect(res.status).toBe(200);
+      const studentArray = Students.getStudents();
+      expect(studentArray).toEqual([{ name: "alex" }]);
+
       expect(res.body.message).toBe("noah");
     });
   });
